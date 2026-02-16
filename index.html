@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saúl - Portafolio Profesional</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body, html { margin: 0; padding: 0; }
+    
+    .font-sans { font-family: 'Poppins', sans-serif; }
+    .font-display { font-family: 'Playfair Display', serif; }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes scaleInCenter {
+      from { opacity: 0; transform: scale(0.85); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(60px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-60px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, #001f3f 0%, #003d82 25%, #0a1628 50%, #003d82 75%, #001f3f 100%);
+      position: relative;
+    }
+    
+    .hero-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(15, 23, 42, 0.3) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    
+    .hero-content { position: relative; z-index: 1; }
+    
+    .animate-fade-up { animation: fadeInUp 0.8s ease-out forwards; }
+    .animate-fade-down { animation: fadeInDown 0.8s ease-out forwards; }
+    .animate-scale { animation: scaleInCenter 0.8s ease-out forwards; }
+    .animate-slide-right { animation: slideInRight 0.8s ease-out forwards; }
+    .animate-slide-left { animation: slideInLeft 0.8s ease-out forwards; }
+    
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-600 { animation-delay: 0.6s; }
+    
+    .value-card {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+    
+    .value-card:nth-child(1) { animation-delay: 0.1s; }
+    .value-card:nth-child(2) { animation-delay: 0.2s; }
+    .value-card:nth-child(3) { animation-delay: 0.3s; }
+    .value-card:nth-child(4) { animation-delay: 0.4s; }
+    .value-card:nth-child(5) { animation-delay: 0.5s; }
+    .value-card:nth-child(6) { animation-delay: 0.6s; }
+    
+    .value-card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 25px 50px rgba(220, 38, 38, 0.15);
+    }
+    
+    .cta-button {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(220, 38, 38, 0.4);
+    }
+    
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.5s ease;
+      z-index: -1;
+    }
+    
+    .cta-button:hover::before {
+      left: 100%;
+    }
+    
+    .section-title {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #dc2626 0%, #991b1b 100%);
+      border-radius: 2px;
+    }
+    
+    .archetype-card {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+    }
+    
+    .archetype-card:hover {
+      background: rgba(220, 38, 38, 0.1);
+      border-color: rgba(220, 38, 38, 0.3);
+      transform: translateY(-8px);
+    }
+    
+    .scroll-indicator {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .navbar {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #dc2626;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      color: #dc2626;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-link.active {
+      color: #dc2626;
+    }
+    
+    .nav-link.active::after {
+      width: 100%;
+    }
+    
+    .badge {
+      display: inline-block;
+      background: rgba(220, 38, 38, 0.1);
+      border: 1px solid rgba(220, 38, 38, 0.3);
+      color: #fca5a5;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .badge:hover {
+      background: rgba(220, 38, 38, 0.2);
+      border-color: rgba(220, 38, 38, 0.5);
+    }
+
+    .blog-post {
+      background: rgba(255, 255, 255, 0.02);
+      border-left: 4px solid #dc2626;
+    }
+
+    .blog-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .blog-content {
+      line-height: 1.8;
+      color: #e2e8f0;
+    }
+
+    .blog-content h3 {
+      color: #dc2626;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .blog-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .blog-content ul, .blog-content ol {
+      margin-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .blog-content li {
+      margin-bottom: 0.75rem;
+    }
+
+    .page-hidden {
+      display: none !important;
+    }
+
+    .page-visible {
+      display: block !important;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      z-index: 40;
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      cursor: pointer;
+    }
+
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0a0f1e 0%, #1a1f2e 100%);
+      border-radius: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 0.875rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans text-gray-900 h-full">
+  <div id="app-wrapper" class="h-full w-full overflow-auto bg-slate-950">
+    
+    <!-- Navbar -->
+    <nav class="navbar sticky top-0 z-50 w-full">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex items-center justify-between">
+          <button onclick="navigateTo('home')" class="text-2xl font-display font-bold text-white hover:text-red-400 transition-colors">S</button>
+          
+          <!-- Desktop Navigation -->
+          <div class="desktop-nav hidden md:flex gap-8">
+            <a href="#home" onclick="navigateTo('home'); return false;" class="nav-link active" data-section="home">Inicio</a>
+            <a href="#about" onclick="navigateTo('about'); return false;" class="nav-link" data-section="about">Sobre mí</a>
+            <a href="#blog" onclick="navigateTo('blog'); return false;" class="nav-link" data-section="blog">Blog</a>
+            <a href="#portafolio" onclick="navigateTo('portafolio'); return false;" class="nav-link" data-section="portafolio">Portafolio</a>
+            <a href="#contacto" onclick="navigateTo('contacto'); return false;" class="nav-link" data-section="contacto">Contacto</a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button class="mobile-menu-btn text-white text-2xl" onclick="toggleMobileMenu()">Menu</button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="mobile-menu">
+          <a href="#home" onclick="navigateTo('home'); return false;" class="block py-2 nav-link" data-section="home">Inicio</a>
+          <a href="#about" onclick="navigateTo('about'); return false;" class="block py-2 nav-link" data-section="about">Sobre mí</a>
+          <a href="#blog" onclick="navigateTo('blog'); return false;" class="block py-2 nav-link" data-section="blog">Blog</a>
+          <a href="#portafolio" onclick="navigateTo('portafolio'); return false;" class="block py-2 nav-link" data-section="portafolio">Portafolio</a>
+          <a href="#contacto" onclick="navigateTo('contacto'); return false;" class="block py-2 nav-link" data-section="contacto">Contacto</a>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- HOME SECTION -->
+    <div id="home" class="page-visible">
+      <!-- Hero Section -->
+      <section class="hero-gradient min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
+        <div class="hero-content max-w-5xl mx-auto text-center">
+          
+          <!-- Badge -->
+          <div class="mb-8 opacity-0 animate-fade-down delay-100">
+            <span class="badge">El Arquetipo del Heroe</span>
+          </div>
+          
+          <!-- Welcome Message -->
+          <div class="opacity-0 animate-fade-up delay-150 mb-8">
+            <p id="welcome-text" class="text-xl text-red-400 italic font-medium">
+              Bienvenido a mi espacio digital
+            </p>
+          </div>
+          
+          <!-- Profile Photo -->
+          <div class="opacity-0 animate-scale delay-200 mb-8">
+            <div class="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-red-600 to-blue-900 p-1">
+              <div class="w-full h-full rounded-full bg-slate-800 overflow-hidden">
+                <!-- INSERTA TU IMAGEN AQUI - Reemplaza el src con tu URL de imagen -->
+                <img id="profile-image" src="" alt="Foto de perfil" loading="lazy" onerror="document.getElementById('profile-placeholder').style.display='flex'; this.style.display='none';" style="width: 100%; height: 100%; object-fit: cover;">
+                <div id="profile-placeholder" class="image-placeholder" style="display: flex;">
+                  Agregar foto personal aqui
+                </div>
+              </div>
+            </div>
+            <p class="text-slate-400 text-sm mt-4">Imagen en edicion: profile_image_url</p>
+          </div>
+          
+          <!-- Main Content -->
+          <div class="opacity-0 animate-scale delay-250">
+            <h1 id="hero-name" class="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+              Saúl
+            </h1>
+          </div>
+          
+          <div class="opacity-0 animate-fade-up delay-300">
+            <h2 id="hero-title" class="text-2xl md:text-3xl text-slate-300 mb-8 font-light">
+              Líder & Profesional
+            </h2>
+          </div>
+          
+          <div class="opacity-0 animate-fade-up delay-400">
+            <p id="hero-tagline" class="text-xl md:text-2xl text-red-400 italic font-medium mb-12 max-w-3xl mx-auto">
+              "Disciplina, esfuerzo y liderazgo para alcanzar metas reales."
+            </p>
+          </div>
+          
+          <!-- CTA Button -->
+          <div class="opacity-0 animate-fade-up delay-500 mb-20">
+            <button onclick="navigateTo('about')" class="cta-button inline-block bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-lg text-lg transition-all">
+              Conoce más sobre mí
+            </button>
+          </div>
+          
+          <!-- Scroll Indicator -->
+          <div class="opacity-0 animate-fade-up delay-600 absolute bottom-10 left-1/2 transform -translate-x-1/2">
+            <div class="scroll-indicator text-white">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <div id="about" class="page-hidden">
+      <section class="py-24 px-4 bg-slate-900 relative">
+        <div class="max-w-5xl mx-auto">
+          
+          <div class="text-center mb-16">
+            <h2 class="section-title font-display text-5xl font-bold text-white mb-4">Sobre Mí</h2>
+            <p class="text-slate-400 text-lg">Conoce mi historia y lo que me impulsa profesionalmente</p>
+          </div>
+          
+          <!-- About Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+            
+            <!-- Left: Avatar -->
+            <div class="opacity-0 animate-slide-left delay-100">
+              <div class="bg-gradient-to-br from-red-600 to-blue-900 p-1 rounded-3xl inline-block w-full">
+                <div class="bg-slate-900 rounded-3xl overflow-hidden h-96">
+                  <!-- INSERTA TU IMAGEN AQUI - Reemplaza el src con tu URL de imagen -->
+                  <img id="about-image" src="aaaaaaaaaaa" alt="Foto profesional" loading="lazy" onerror="document.getElementById('about-placeholder').style.display='flex'; this.style.display='none';" style="width: 100%; height: 100%; object-fit: cover;">
+                  <div id="about-placeholder" class="image-placeholder" style="display: flex;">
+                    Agregar foto profesional aqui
+                  </div>
+                </div>
+              </div>
+              <p class="text-slate-400 text-sm mt-4 text-center">Imagen en edicion: about_image_url</p>
+            </div>
+            
+            <!-- Right: About Text -->
+            <div class="opacity-0 animate-slide-right delay-200">
+              <h3 class="font-display text-3xl font-bold text-white mb-6">Mi Marca Personal</h3>
+              <p id="about-text" class="text-slate-300 text-lg leading-relaxed mb-8">
+                Soy una persona comprometida con la excelencia y el crecimiento continuo. Mi objetivo es ser reconocido como alguien que lidera con el ejemplo, demostrando que con disciplina, esfuerzo y determinación, cualquier meta es alcanzable.
+              </p>
+              
+              <h4 class="text-xl font-bold text-red-400 mb-4">Mis Fortalezas</h4>
+              <p id="strengths" class="text-slate-300 text-lg leading-relaxed mb-8">
+                Liderazgo transformacional, Disciplina inquebrantable, Capacidad de aprendizaje, Integridad, Empatia, Determinacion
+              </p>
+              
+              <div class="flex flex-wrap gap-3 mb-8">
+                <span class="badge">Liderazgo</span>
+                <span class="badge">Determinación</span>
+                <span class="badge">Crecimiento</span>
+                <span class="badge">Integridad</span>
+                <span class="badge">Empatia</span>
+              </div>
+              
+              <button onclick="navigateTo('blog')" class="cta-button inline-block bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg transition-all">
+                Lee mi blog
+              </button>
+            </div>
+          </div>
+
+          <!-- Values Grid -->
+          <div class="mt-20 pt-16 border-t border-slate-700">
+            <h3 class="section-title font-display text-4xl font-bold text-white mb-12">Mis Arquetipos de Marca</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="archetype-card p-8 rounded-2xl text-center opacity-0 animate-slide-left delay-300">
+                <div class="text-6xl mb-6">H</div>
+                <h4 class="text-xl font-bold text-white mb-3">El Heroe</h4>
+                <p class="text-slate-400 text-sm">Determinación y disciplina para superar obstáculos</p>
+              </div>
+              
+              <div class="archetype-card p-8 rounded-2xl text-center opacity-0 animate-scale delay-400">
+                <div class="text-6xl mb-6">S</div>
+                <h4 class="text-xl font-bold text-white mb-3">El Sabio</h4>
+                <p class="text-slate-400 text-sm">Sed de conocimiento y aprendizaje continuo</p>
+              </div>
+              
+              <div class="archetype-card p-8 rounded-2xl text-center opacity-0 animate-slide-right delay-500">
+                <div class="text-6xl mb-6">C</div>
+                <h4 class="text-xl font-bold text-white mb-3">El Cuidador</h4>
+                <p class="text-slate-400 text-sm">Escucha activa y conexión humana genuina</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- BLOG SECTION -->
+    <div id="blog" class="page-hidden">
+      <section class="py-24 px-4 bg-slate-950 relative">
+        <div class="max-w-4xl mx-auto">
+          
+          <div class="text-center mb-16">
+            <h2 class="section-title font-display text-5xl font-bold text-white mb-4">Blog</h2>
+            <p class="text-slate-400 text-lg">Reflexiones sobre mi marca personal y trayectoria profesional</p>
+          </div>
+
+          <!-- Blog Post -->
+          <article class="blog-post bg-slate-900 rounded-2xl p-8 md:p-12 opacity-0 animate-fade-up delay-100">
+            
+            <!-- Post Header -->
+            <header class="mb-8">
+              <h1 id="blog-title" class="font-display text-4xl md:text-5xl font-bold text-white mb-6">
+                Como soy como marca
+              </h1>
+              
+              <div class="blog-meta">
+                <span>Enero 2025</span>
+                <span>Saul</span>
+                <span>8 min de lectura</span>
+              </div>
+            </header>
+
+            <!-- Post Content -->
+            <div class="blog-content">
+              
+              <h3>Introducción: Definiendo mi Marca Personal</h3>
+              <p id="blog-intro">
+                La marca personal no es algo que se construye de la noche a la mañana. Es el resultado de decisiones consistentes, valores auténticos y la determinación de proyectar quien realmente somos. Yo soy un líder que cree en el poder de la disciplina y el esfuerzo constante. Soy alguien interesante porque combino determinación con empatía, conocimiento con humildad, y acción con reflexión.
+              </p>
+
+              <h3>Mis Tres Arquetipos: El Núcleo de Mi Identidad</h3>
+              
+              <p><strong>El Heroe - Mi Arquetipo Principal</strong></p>
+              <p>
+                El Heroe en mí representa la capacidad de enfrentar desafíos y superarlos. No me asusta el trabajo duro; de hecho, lo busco activamente. Mi marca se construye sobre la base de que las metas grandes requieren determinación inquebrantable y disciplina rigurosa. Cuando me comprometo con algo, lo hago completamente. Este es el arquetipo que más resuena con quien soy.
+              </p>
+
+              <p><strong>El Sabio - Mi Brujula</strong></p>
+              <p>
+                Complemento mi determinación de Heroe con la curiosidad insaciable del Sabio. Valoro el conocimiento, el aprendizaje continuo y la comprensión profunda de los temas que me importan. No solo hago las cosas; busco entender por qué las hago y cómo hacerlas mejor. Esto me diferencia: soy un líder reflexivo, no solo activo.
+              </p>
+
+              <p><strong>El Cuidador - Mi Humanidad</strong></p>
+              <p>
+                El Cuidador es lo que me ancla a la realidad humana. Entiendo que el liderazgo real no es solo sobre alcanzar metas personales, sino sobre elevar a otros. Soy alguien que escucha, que se preocupa genuinamente por el bienestar de su equipo, y que entiende que el verdadero éxito incluye el crecimiento de quienes me rodean.
+              </p>
+
+              <h3>Soy Interesante Porque...</h3>
+              
+              <p><strong>1. Vivo mis Valores Diariamente</strong></p>
+              <p>
+                No es suficiente decir qué valoras. Tienes que vivirlo. Puntualidad, honestidad, esfuerzo, aprendizaje y escucha activa no son solo palabras para mí; son mis acciones diarias. Cuando las personas interactúan conmigo, experimentan la consistencia entre lo que digo y lo que hago.
+              </p>
+
+              <p><strong>2. Desafio Convenciones sin Perder Respeto</strong></p>
+              <p>
+                Soy alguien que cuestiona, que no acepta ciegamente "así se han hecho siempre las cosas". Pero lo hago con respeto y con soluciones, no solo con crítica. Esto me posiciona como un pensador constructivo, no destructivo.
+              </p>
+
+              <p><strong>3. Combino Fortaleza con Vulnerabilidad</strong></p>
+              <p>
+                Mi marca no es la del superhéroe intocable. Reconozco mis áreas de mejora, admito cuando no sé algo, y pido ayuda cuando la necesito. Esta vulnerabilidad honesta me hace más auténtico y más relatable.
+              </p>
+
+              <p><strong>4. Construyo Legado, No Solo Resultados</strong></p>
+              <p>
+                Pienso a largo plazo. Qué estoy dejando? Quién estoy inspirando? Cómo estoy contribuyendo a algo mayor que yo mismo? Este enfoque diferencia mi marca de alguien que solo busca ganancias rápidas.
+              </p>
+
+              <h3>Mi Identidad Visual y Comunicativa</h3>
+              
+              <p>Mi marca se proyecta a través de:</p>
+              <ul>
+                <li><strong>Colores:</strong> Azul oscuro (confianza, profesionalismo) + Rojo (determinación, acción) + Blanco (claridad)</li>
+                <li><strong>Lenguaje:</strong> Directo, honesto, inspirador pero accesible</li>
+                <li><strong>Estilo:</strong> Profesional pero auténtico; formal pero cercano</li>
+                <li><strong>Tono:</strong> Motivador sin ser tóxico; exigente pero justo</li>
+              </ul>
+
+              <h3>Conclusión: Un Liderazgo Que Trasciende</h3>
+              <p id="blog-conclusion">
+                Soy interesante como marca porque no soy un arquetipo único, sino una combinación auténtica de Heroe, Sabio y Cuidador. Proyecto disciplina y determinación, pero también humildad y disposición para crecer. Mis valores no son decoración; son la base de mis acciones. En un mundo donde muchos hablan de liderazgo, yo lo demuestro a través de consistencia, integridad y un genuino interés en elevar a quienes me rodean. Esa es mi marca: no es perfecta, pero es real, y esa realidad es lo que me hace memorable.
+              </p>
+            </div>
+
+            <!-- Back to About -->
+            <div class="mt-12 pt-8 border-t border-slate-700">
+              <button onclick="navigateTo('about')" class="text-red-400 hover:text-red-300 transition-colors">
+                Volver a Sobre Mí
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- PORTFOLIO SECTION -->
+    <div id="portafolio" class="page-hidden">
+      <section class="py-24 px-4 bg-slate-900 relative min-h-screen">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center">
+            <h2 class="section-title font-display text-5xl font-bold text-white mb-4">Portafolio</h2>
+            <p class="text-slate-400 text-lg">Sección en desarrollo - Tus proyectos y trabajos destacados irán aquí</p>
+            <div class="mt-12">
+              <div class="bg-slate-800 rounded-2xl p-12 border border-slate-700">
+                <p class="text-slate-400 text-center">Los detalles de tus proyectos, casos de estudio y logros profesionales se mostrarán en esta sección.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <div id="contacto" class="page-hidden">
+      <section class="py-24 px-4 bg-slate-950 relative overflow-hidden min-h-screen flex items-center">
+        <div class="max-w-3xl mx-auto w-full">
+          
+          <div class="text-center mb-12">
+            <h2 class="section-title font-display text-5xl font-bold text-white mb-4">Conectemos</h2>
+            <p class="text-slate-400 text-lg">¿Tienes un proyecto o propuesta? Me encantaría escucharte.</p>
+          </div>
+          
+          <!-- Contact Box -->
+          <div class="bg-slate-800 bg-opacity-50 border border-slate-700 rounded-2xl p-12 backdrop-filter backdrop-blur opacity-0 animate-scale delay-100">
+            
+            <div class="space-y-8">
+              
+              <!-- Email -->
+              <div class="flex items-center gap-6">
+                <div class="text-4xl">E</div>
+                <div>
+                  <p class="text-slate-400 text-sm mb-1">Correo Electronico</p>
+                  <a id="contact-email" href="mailto:contacto@saul.com" class="text-white text-xl font-semibold hover:text-red-400 transition-colors">
+                    contacto@saul.com
+                  </a>
+                </div>
+              </div>
+              
+              <!-- Phone -->
+              <div class="flex items-center gap-6">
+                <div class="text-4xl">T</div>
+                <div>
+                  <p class="text-slate-400 text-sm mb-1">Telefono</p>
+                  <p id="contact-phone" class="text-white text-xl font-semibold">+1 (555) 123-4567</p>
+                </div>
+              </div>
+              
+              <!-- CTA -->
+              <div class="pt-8 border-t border-slate-700">
+                <a href="mailto:contacto@saul.com" class="cta-button block w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-center transition-all">
+                  Enviar Mensaje
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-12 px-4">
+      <div class="max-w-6xl mx-auto text-center">
+        <p class="text-slate-500 text-sm mb-2">2025 Saúl - Portafolio Profesional</p>
+        <p class="text-slate-600 text-xs">Arquetipo: El Heroe - Paleta: Azul Oscuro + Rojo + Blanco</p>
+      </div>
+    </footer>
+    
+  </div>
+
+  <script>
+    const defaultConfig = {
+      hero_name: 'Saúl',
+      hero_title: 'Líder & Profesional',
+      hero_tagline: '"Disciplina, esfuerzo y liderazgo para alcanzar metas reales."',
+      welcome_text: 'Bienvenido a mi espacio digital',
+      profile_image_url: '',
+      about_text: 'Soy una persona comprometida con la excelencia y el crecimiento continuo. Mi objetivo es ser reconocido como alguien que lidera con el ejemplo, demostrando que con disciplina, esfuerzo y determinación, cualquier meta es alcanzable.',
+      about_image_url: '',
+      strengths: 'Liderazgo transformacional, Disciplina inquebrantable, Capacidad de aprendizaje, Integridad, Empatia, Determinacion',
+      blog_title: 'Como soy como marca',
+      blog_intro: 'La marca personal no es algo que se construye de la noche a la mañana. Es el resultado de decisiones consistentes, valores auténticos y la determinación de proyectar quien realmente somos.',
+      blog_content: 'Contenido del blog aqui...',
+      blog_conclusion: 'Soy interesante como marca porque no soy un arquetipo único, sino una combinación auténtica de Heroe, Sabio y Cuidador.',
+      contact_email: 'contacto@saul.com',
+      contact_phone: '+1 (555) 123-4567',
+      primary_color: '#dc2626',
+      secondary_color: '#0a0f1e',
+      text_color: '#ffffff',
+      accent_color: '#1e293b',
+      surface_color: '#0f172a',
+      font_family: 'Poppins',
+      font_size: 16
+    };
+
+    let currentPage = 'home';
+
+    function navigateTo(page) {
+      document.querySelectorAll('[id="home"], [id="about"], [id="blog"], [id="portafolio"], [id="contacto"]').forEach(el => {
+        el.classList.remove('page-visible');
+        el.classList.add('page-hidden');
+      });
+
+      document.getElementById(page).classList.remove('page-hidden');
+      document.getElementById(page).classList.add('page-visible');
+
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.dataset.section === page) {
+          link.classList.add('active');
+        }
+      });
+
+      currentPage = page;
+      closeMobileMenu();
+      window.scrollTo(0, 0);
+    }
+
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.remove('active');
+    }
+
+    async function onConfigChange(config) {
+      const heroName = document.getElementById('hero-name');
+      const heroTitle = document.getElementById('hero-title');
+      const heroTagline = document.getElementById('hero-tagline');
+      const welcomeText = document.getElementById('welcome-text');
+      const profileImage = document.getElementById('profile-image');
+      const aboutText = document.getElementById('about-text');
+      const aboutImage = document.getElementById('about-image');
+      const strengths = document.getElementById('strengths');
+      const blogTitle = document.getElementById('blog-title');
+      const blogIntro = document.getElementById('blog-intro');
+      const blogConclusion = document.getElementById('blog-conclusion');
+      const contactEmail = document.getElementById('contact-email');
+      const contactPhone = document.getElementById('contact-phone');
+
+      if (heroName) heroName.textContent = config.hero_name || defaultConfig.hero_name;
+      if (heroTitle) heroTitle.textContent = config.hero_title || defaultConfig.hero_title;
+      if (heroTagline) heroTagline.textContent = config.hero_tagline || defaultConfig.hero_tagline;
+      if (welcomeText) welcomeText.textContent = config.welcome_text || defaultConfig.welcome_text;
+      if (profileImage && config.profile_image_url) profileImage.src = config.profile_image_url;
+      if (aboutText) aboutText.textContent = config.about_text || defaultConfig.about_text;
+      if (aboutImage && config.about_image_url) aboutImage.src = config.about_image_url;
+      if (strengths) strengths.textContent = config.strengths || defaultConfig.strengths;
+      if (blogTitle) blogTitle.textContent = config.blog_title || defaultConfig.blog_title;
+      if (blogIntro) blogIntro.textContent = config.blog_intro || defaultConfig.blog_intro;
+      if (blogConclusion) blogConclusion.textContent = config.blog_conclusion || defaultConfig.blog_conclusion;
+      
+      if (contactEmail) {
+        const email = config.contact_email || defaultConfig.contact_email;
+        contactEmail.textContent = email;
+        contactEmail.href = `mailto:${email}`;
+      }
+      if (contactPhone) contactPhone.textContent = config.contact_phone || defaultConfig.contact_phone;
+
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      document.querySelectorAll('.bg-red-600').forEach(el => {
+        el.style.backgroundColor = primaryColor;
+      });
+      document.querySelectorAll('.text-red-400').forEach(el => {
+        el.style.color = primaryColor;
+      });
+
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      document.body.style.fontFamily = `'${fontFamily}', sans-serif`;
+
+      const baseSize = config.font_size || defaultConfig.font_size;
+      document.documentElement.style.fontSize = `${baseSize}px`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.secondary_color || defaultConfig.secondary_color,
+            set: (value) => {
+              config.secondary_color = value;
+              window.elementSdk.setConfig({ secondary_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_color || defaultConfig.primary_color,
+            set: (value) => {
+              config.primary_color = value;
+              window.elementSdk.setConfig({ primary_color: value });
+            }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              config.accent_color = value;
+              window.elementSdk.setConfig({ accent_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['hero_name', config.hero_name || defaultConfig.hero_name],
+        ['hero_title', config.hero_title || defaultConfig.hero_title],
+        ['hero_tagline', config.hero_tagline || defaultConfig.hero_tagline],
+        ['welcome_text', config.welcome_text || defaultConfig.welcome_text],
+        ['profile_image_url', config.profile_image_url || defaultConfig.profile_image_url],
+        ['about_text', config.about_text || defaultConfig.about_text],
+        ['about_image_url', config.about_image_url || defaultConfig.about_image_url],
+        ['strengths', config.strengths || defaultConfig.strengths],
+        ['blog_title', config.blog_title || defaultConfig.blog_title],
+        ['blog_intro', config.blog_intro || defaultConfig.blog_intro],
+        ['blog_content', config.blog_content || defaultConfig.blog_content],
+        ['blog_conclusion', config.blog_conclusion || defaultConfig.blog_conclusion],
+        ['contact_email', config.contact_email || defaultConfig.contact_email],
+        ['contact_phone', config.contact_phone || defaultConfig.contact_phone]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.target.style.opacity === '0') {
+          entry.target.style.opacity = '1';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('[style*="opacity: 0"]').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cef9a22116eefc7',t:'MTc3MTI3MTcyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
