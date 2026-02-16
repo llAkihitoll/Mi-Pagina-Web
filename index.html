@@ -76,24 +76,6 @@
     .delay-500 { animation-delay: 0.5s; }
     .delay-600 { animation-delay: 0.6s; }
     
-    .value-card {
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      opacity: 0;
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
-    
-    .value-card:nth-child(1) { animation-delay: 0.1s; }
-    .value-card:nth-child(2) { animation-delay: 0.2s; }
-    .value-card:nth-child(3) { animation-delay: 0.3s; }
-    .value-card:nth-child(4) { animation-delay: 0.4s; }
-    .value-card:nth-child(5) { animation-delay: 0.5s; }
-    .value-card:nth-child(6) { animation-delay: 0.6s; }
-    
-    .value-card:hover {
-      transform: translateY(-12px) scale(1.03);
-      box-shadow: 0 25px 50px rgba(220, 38, 38, 0.15);
-    }
-    
     .cta-button {
       position: relative;
       overflow: hidden;
@@ -105,22 +87,6 @@
     .cta-button:hover {
       transform: translateY(-3px);
       box-shadow: 0 15px 40px rgba(220, 38, 38, 0.4);
-    }
-    
-    .cta-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.2);
-      transition: left 0.5s ease;
-      z-index: -1;
-    }
-    
-    .cta-button:hover::before {
-      left: 100%;
     }
     
     .section-title {
@@ -238,21 +204,39 @@
       color: #dc2626;
       margin-top: 2rem;
       margin-bottom: 1rem;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 700;
+      line-height: 1.4;
     }
 
     .blog-content p {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.7;
     }
 
-    .blog-content ul, .blog-content ol {
+    .blog-content strong {
+      color: #fca5a5;
+      font-weight: 700;
+    }
+
+    .blog-content a {
+      color: #fca5a5;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    .blog-content a:hover {
+      color: #dc2626;
+    }
+
+    .blog-content ul {
       margin-left: 2rem;
       margin-bottom: 1.5rem;
     }
 
     .blog-content li {
       margin-bottom: 0.75rem;
+      line-height: 1.6;
     }
 
     .page-hidden {
@@ -352,37 +336,31 @@
     
     <!-- HOME SECTION -->
     <div id="home" class="page-visible">
-      <!-- Hero Section -->
       <section class="hero-gradient min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
         <div class="hero-content max-w-5xl mx-auto text-center">
           
-          <!-- Badge -->
           <div class="mb-8 opacity-0 animate-fade-down delay-100">
             <span class="badge">El Arquetipo del Heroe</span>
           </div>
           
-          <!-- Welcome Message -->
           <div class="opacity-0 animate-fade-up delay-150 mb-8">
             <p id="welcome-text" class="text-xl text-red-400 italic font-medium">
               Bienvenido a mi espacio digital
             </p>
           </div>
           
-          <!-- Profile Photo -->
           <div class="opacity-0 animate-scale delay-200 mb-8">
             <div class="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-red-600 to-blue-900 p-1">
               <div class="w-full h-full rounded-full bg-slate-800 overflow-hidden">
-                <!-- INSERTA TU IMAGEN AQUI - Reemplaza el src con tu URL de imagen -->
                 <img id="profile-image" src="" alt="Foto de perfil" loading="lazy" onerror="document.getElementById('profile-placeholder').style.display='flex'; this.style.display='none';" style="width: 100%; height: 100%; object-fit: cover;">
                 <div id="profile-placeholder" class="image-placeholder" style="display: flex;">
                   Agregar foto personal aqui
                 </div>
               </div>
             </div>
-            <p class="text-slate-400 text-sm mt-4">Imagen en edicion: profile_image_url</p>
+            <p class="text-slate-400 text-sm mt-4">Editar: profile_image_url</p>
           </div>
           
-          <!-- Main Content -->
           <div class="opacity-0 animate-scale delay-250">
             <h1 id="hero-name" class="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
               Saúl
@@ -401,14 +379,12 @@
             </p>
           </div>
           
-          <!-- CTA Button -->
           <div class="opacity-0 animate-fade-up delay-500 mb-20">
             <button onclick="navigateTo('about')" class="cta-button inline-block bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-lg text-lg transition-all">
               Conoce más sobre mí
             </button>
           </div>
           
-          <!-- Scroll Indicator -->
           <div class="opacity-0 animate-fade-up delay-600 absolute bottom-10 left-1/2 transform -translate-x-1/2">
             <div class="scroll-indicator text-white">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -430,24 +406,20 @@
             <p class="text-slate-400 text-lg">Conoce mi historia y lo que me impulsa profesionalmente</p>
           </div>
           
-          <!-- About Grid -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
             
-            <!-- Left: Avatar -->
             <div class="opacity-0 animate-slide-left delay-100">
               <div class="bg-gradient-to-br from-red-600 to-blue-900 p-1 rounded-3xl inline-block w-full">
                 <div class="bg-slate-900 rounded-3xl overflow-hidden h-96">
-                  <!-- INSERTA TU IMAGEN AQUI - Reemplaza el src con tu URL de imagen -->
-                  <img id="about-image" src="aaaaaaaaaaa" alt="Foto profesional" loading="lazy" onerror="document.getElementById('about-placeholder').style.display='flex'; this.style.display='none';" style="width: 100%; height: 100%; object-fit: cover;">
+                  <img id="about-image" src="" alt="Foto profesional" loading="lazy" onerror="document.getElementById('about-placeholder').style.display='flex'; this.style.display='none';" style="width: 100%; height: 100%; object-fit: cover;">
                   <div id="about-placeholder" class="image-placeholder" style="display: flex;">
                     Agregar foto profesional aqui
                   </div>
                 </div>
               </div>
-              <p class="text-slate-400 text-sm mt-4 text-center">Imagen en edicion: about_image_url</p>
+              <p class="text-slate-400 text-sm mt-4 text-center">Editar: about_image_url</p>
             </div>
             
-            <!-- Right: About Text -->
             <div class="opacity-0 animate-slide-right delay-200">
               <h3 class="font-display text-3xl font-bold text-white mb-6">Mi Marca Personal</h3>
               <p id="about-text" class="text-slate-300 text-lg leading-relaxed mb-8">
@@ -473,7 +445,6 @@
             </div>
           </div>
 
-          <!-- Values Grid -->
           <div class="mt-20 pt-16 border-t border-slate-700">
             <h3 class="section-title font-display text-4xl font-bold text-white mb-12">Mis Arquetipos de Marca</h3>
             
@@ -508,89 +479,111 @@
           
           <div class="text-center mb-16">
             <h2 class="section-title font-display text-5xl font-bold text-white mb-4">Blog</h2>
-            <p class="text-slate-400 text-lg">Reflexiones sobre mi marca personal y trayectoria profesional</p>
+            <p class="text-slate-400 text-lg">Reflexiones sobre marca y liderazgo profesional</p>
           </div>
 
-          <!-- Blog Post -->
           <article class="blog-post bg-slate-900 rounded-2xl p-8 md:p-12 opacity-0 animate-fade-up delay-100">
             
-            <!-- Post Header -->
             <header class="mb-8">
               <h1 id="blog-title" class="font-display text-4xl md:text-5xl font-bold text-white mb-6">
-                Como soy como marca
+                Cómo construir una marca personal sólida: 3 arquetipos que definen mi liderazgo profesional
               </h1>
               
               <div class="blog-meta">
                 <span>Enero 2025</span>
                 <span>Saul</span>
-                <span>8 min de lectura</span>
+                <span>8 min lectura</span>
               </div>
             </header>
 
-            <!-- Post Content -->
             <div class="blog-content">
               
-              <h3>Introducción: Definiendo mi Marca Personal</h3>
+              <h3>El Punto de Partida: Coherencia, No Discurso</h3>
               <p id="blog-intro">
-                La marca personal no es algo que se construye de la noche a la mañana. Es el resultado de decisiones consistentes, valores auténticos y la determinación de proyectar quien realmente somos. Yo soy un líder que cree en el poder de la disciplina y el esfuerzo constante. Soy alguien interesante porque combino determinación con empatía, conocimiento con humildad, y acción con reflexión.
+                Escribes en Google: "marca personal liderazgo con disciplina y esfuerzo". Lo que quiero que encuentres no es un discurso motivacional. <strong>Es coherencia.</strong> Mi marca personal se basa en valores que se demuestran, no que se anuncian.
               </p>
 
-              <h3>Mis Tres Arquetipos: El Núcleo de Mi Identidad</h3>
+              <p>
+                Construir una identidad profesional sólida exige intención. No ocurre por casualidad. <strong>Ocurre cuando alineas lo que piensas, lo que haces y lo que proyectas.</strong>
+              </p>
+
+              <h3>1. El Héroe: Disciplina y Determinación</h3>
               
-              <p><strong>El Heroe - Mi Arquetipo Principal</strong></p>
               <p>
-                El Heroe en mí representa la capacidad de enfrentar desafíos y superarlos. No me asusta el trabajo duro; de hecho, lo busco activamente. Mi marca se construye sobre la base de que las metas grandes requieren determinación inquebrantable y disciplina rigurosa. Cuando me comprometo con algo, lo hago completamente. Este es el arquetipo que más resuena con quien soy.
+                Mi arquetipo principal es el Héroe. Representa esfuerzo constante y metas claras. <strong>No evito desafíos. Los enfrento con preparación y constancia.</strong>
               </p>
 
-              <p><strong>El Sabio - Mi Brujula</strong></p>
               <p>
-                Complemento mi determinación de Heroe con la curiosidad insaciable del Sabio. Valoro el conocimiento, el aprendizaje continuo y la comprensión profunda de los temas que me importan. No solo hago las cosas; busco entender por qué las hago y cómo hacerlas mejor. Esto me diferencia: soy un líder reflexivo, no solo activo.
+                La puntualidad y el trabajo disciplinado forman parte de mi identidad. Cuando asumo un compromiso, lo cumplo. Entiendo que el liderazgo no se impone. Se construye con resultados visibles.
               </p>
 
-              <p><strong>El Cuidador - Mi Humanidad</strong></p>
               <p>
-                El Cuidador es lo que me ancla a la realidad humana. Entiendo que el liderazgo real no es solo sobre alcanzar metas personales, sino sobre elevar a otros. Soy alguien que escucha, que se preocupa genuinamente por el bienestar de su equipo, y que entiende que el verdadero éxito incluye el crecimiento de quienes me rodean.
+                En el mundo de la <a href="#">marca personal</a>, <strong>la credibilidad nace de la acción repetida.</strong> Cada meta alcanzada fortalece mi reputación profesional.
               </p>
 
-              <h3>Soy Interesante Porque...</h3>
+              <h3>2. El Sabio: Aprendizaje Continuo y Reflexión</h3>
               
-              <p><strong>1. Vivo mis Valores Diariamente</strong></p>
               <p>
-                No es suficiente decir qué valoras. Tienes que vivirlo. Puntualidad, honestidad, esfuerzo, aprendizaje y escucha activa no son solo palabras para mí; son mis acciones diarias. Cuando las personas interactúan conmigo, experimentan la consistencia entre lo que digo y lo que hago.
+                No solo actúo. También analizo. <strong>El arquetipo del Sabio equilibra mi determinación con pensamiento estratégico.</strong>
               </p>
 
-              <p><strong>2. Desafio Convenciones sin Perder Respeto</strong></p>
               <p>
-                Soy alguien que cuestiona, que no acepta ciegamente "así se han hecho siempre las cosas". Pero lo hago con respeto y con soluciones, no solo con crítica. Esto me posiciona como un pensador constructivo, no destructivo.
+                Valoro el aprendizaje constante porque mejora mi desempeño. Busco comprender procesos, no solo ejecutarlos. Esto me permite liderar con criterio, no solo con energía.
               </p>
 
-              <p><strong>3. Combino Fortaleza con Vulnerabilidad</strong></p>
               <p>
-                Mi marca no es la del superhéroe intocable. Reconozco mis áreas de mejora, admito cuando no sé algo, y pido ayuda cuando la necesito. Esta vulnerabilidad honesta me hace más auténtico y más relatable.
+                El liderazgo moderno requiere actualización permanente. Diversos estudios de <a href="https://hbr.org">Harvard Business Review</a> destacan que los líderes efectivos combinan acción con reflexión estructurada.
               </p>
 
-              <p><strong>4. Construyo Legado, No Solo Resultados</strong></p>
-              <p>
-                Pienso a largo plazo. Qué estoy dejando? Quién estoy inspirando? Cómo estoy contribuyendo a algo mayor que yo mismo? Este enfoque diferencia mi marca de alguien que solo busca ganancias rápidas.
-              </p>
-
-              <h3>Mi Identidad Visual y Comunicativa</h3>
+              <h3>3. El Cuidador: Liderazgo con Empatía</h3>
               
-              <p>Mi marca se proyecta a través de:</p>
-              <ul>
-                <li><strong>Colores:</strong> Azul oscuro (confianza, profesionalismo) + Rojo (determinación, acción) + Blanco (claridad)</li>
-                <li><strong>Lenguaje:</strong> Directo, honesto, inspirador pero accesible</li>
-                <li><strong>Estilo:</strong> Profesional pero auténtico; formal pero cercano</li>
-                <li><strong>Tono:</strong> Motivador sin ser tóxico; exigente pero justo</li>
-              </ul>
+              <p>
+                Escuchar atentamente es parte de mi ventaja competitiva. El Cuidador aporta humanidad a mi estilo profesional.
+              </p>
 
-              <h3>Conclusión: Un Liderazgo Que Trasciende</h3>
+              <p>
+                Entiendo que el crecimiento individual se potencia en equipo. Por eso priorizo la honestidad, el respeto y la colaboración.
+              </p>
+
+              <p>
+                El impacto real no consiste solo en alcanzar objetivos personales. Consiste en elevar a quienes trabajan contigo.
+              </p>
+
+              <h3>Valores que Sostienen Mi Identidad</h3>
+              
+              <p>
+                Puntualidad, honestidad, esfuerzo, aprendizaje y escucha activa no son conceptos decorativos. Son principios operativos.
+              </p>
+
+              <p>
+                La consistencia entre lo que digo y lo que hago define mi posicionamiento. Esa coherencia construye confianza y fortalece mi liderazgo.
+              </p>
+
+              <p>
+                Si alguien buscara mi perfil profesional, quiero que encuentre <strong>disciplina, integridad y resultados medibles.</strong>
+              </p>
+
+              <h3>Una Marca que Trasciende Resultados</h3>
+              
+              <p>
+                Vuelvo a la escena inicial: alguien escribe en Google "liderazgo con esfuerzo y disciplina".
+              </p>
+
+              <p>
+                Quiero que mi nombre sea sinónimo de coherencia y crecimiento constante. No busco reconocimiento superficial. Busco impacto sostenible.
+              </p>
+
+              <p>
+                La marca personal no es una estrategia estética. Es una práctica diaria.
+              </p>
+
+              <h3>La Pregunta Directa</h3>
+              
               <p id="blog-conclusion">
-                Soy interesante como marca porque no soy un arquetipo único, sino una combinación auténtica de Heroe, Sabio y Cuidador. Proyecto disciplina y determinación, pero también humildad y disposición para crecer. Mis valores no son decoración; son la base de mis acciones. En un mundo donde muchos hablan de liderazgo, yo lo demuestro a través de consistencia, integridad y un genuino interés en elevar a quienes me rodean. Esa es mi marca: no es perfecta, pero es real, y esa realidad es lo que me hace memorable.
+                ¿Tu identidad profesional refleja realmente tus valores? Si la respuesta no es clara, comienza hoy. Define tus principios. Documenta tu proceso. Lidera con acciones. Porque al final, <strong>lo que permanece no es lo que prometes. Es lo que demuestras.</strong>
               </p>
             </div>
 
-            <!-- Back to About -->
             <div class="mt-12 pt-8 border-t border-slate-700">
               <button onclick="navigateTo('about')" class="text-red-400 hover:text-red-300 transition-colors">
                 Volver a Sobre Mí
@@ -607,10 +600,12 @@
         <div class="max-w-5xl mx-auto">
           <div class="text-center">
             <h2 class="section-title font-display text-5xl font-bold text-white mb-4">Portafolio</h2>
-            <p class="text-slate-400 text-lg">Sección en desarrollo - Tus proyectos y trabajos destacados irán aquí</p>
+            <p class="text-slate-400 text-lg mb-12">Proyectos destacados que reflejan mi liderazgo y disciplina</p>
             <div class="mt-12">
               <div class="bg-slate-800 rounded-2xl p-12 border border-slate-700">
-                <p class="text-slate-400 text-center">Los detalles de tus proyectos, casos de estudio y logros profesionales se mostrarán en esta sección.</p>
+                <div class="text-center text-slate-500">
+                  <p class="text-2xl font-bold mb-4">Próximamente</p>
+                  <p class="text-sm">Estoy trabajando en esta sección para mostrar mis proyectos más destacados. ¡Mantente atento!</p>
               </div>
             </div>
           </div>
@@ -624,38 +619,32 @@
         <div class="max-w-3xl mx-auto w-full">
           
           <div class="text-center mb-12">
-            <h2 class="section-title font-display text-5xl font-bold text-white mb-4">Conectemos</h2>
-            <p class="text-slate-400 text-lg">¿Tienes un proyecto o propuesta? Me encantaría escucharte.</p>
+            <h2 class="section-title font-display text-5xl font-bold text-white mb-4">Contacto</h2>
           </div>
           
-          <!-- Contact Box -->
           <div class="bg-slate-800 bg-opacity-50 border border-slate-700 rounded-2xl p-12 backdrop-filter backdrop-blur opacity-0 animate-scale delay-100">
             
             <div class="space-y-8">
               
-              <!-- Email -->
               <div class="flex items-center gap-6">
                 <div class="text-4xl">E</div>
                 <div>
                   <p class="text-slate-400 text-sm mb-1">Correo Electronico</p>
-                  <a id="contact-email" href="mailto:contacto@saul.com" class="text-white text-xl font-semibold hover:text-red-400 transition-colors">
-                    contacto@saul.com
-                  </a>
+                  <a id="contact-email" href="mailto:cas248915@uvg.edu.gt" class="text-white text-xl font-semibold hover:text-red-400 transition-colors">
+                    cas248915@uvg.edu.gt                  </a>
                 </div>
               </div>
               
-              <!-- Phone -->
               <div class="flex items-center gap-6">
                 <div class="text-4xl">T</div>
                 <div>
                   <p class="text-slate-400 text-sm mb-1">Telefono</p>
-                  <p id="contact-phone" class="text-white text-xl font-semibold">+1 (555) 123-4567</p>
+                  <p id="contact-phone" class="text-white text-xl font-semibold">+502 5986 4340</p>
                 </div>
               </div>
               
-              <!-- CTA -->
               <div class="pt-8 border-t border-slate-700">
-                <a href="mailto:contacto@saul.com" class="cta-button block w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-center transition-all">
+                <a href="mailto:cas248915@uvg.edu.gt" class="cta-button block w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-center transition-all">
                   Enviar Mensaje
                 </a>
               </div>
@@ -665,7 +654,6 @@
       </section>
     </div>
     
-    <!-- Footer -->
     <footer class="bg-slate-900 border-t border-slate-800 py-12 px-4">
       <div class="max-w-6xl mx-auto text-center">
         <p class="text-slate-500 text-sm mb-2">2025 Saúl - Portafolio Profesional</p>
@@ -685,10 +673,10 @@
       about_text: 'Soy una persona comprometida con la excelencia y el crecimiento continuo. Mi objetivo es ser reconocido como alguien que lidera con el ejemplo, demostrando que con disciplina, esfuerzo y determinación, cualquier meta es alcanzable.',
       about_image_url: '',
       strengths: 'Liderazgo transformacional, Disciplina inquebrantable, Capacidad de aprendizaje, Integridad, Empatia, Determinacion',
-      blog_title: 'Como soy como marca',
-      blog_intro: 'La marca personal no es algo que se construye de la noche a la mañana. Es el resultado de decisiones consistentes, valores auténticos y la determinación de proyectar quien realmente somos.',
+      blog_title: 'Cómo construir una marca personal sólida: 3 arquetipos que definen mi liderazgo profesional',
+      blog_intro: 'Escribes en Google: "marca personal liderazgo con disciplina y esfuerzo". Lo que quiero que encuentres no es un discurso motivacional. Es coherencia.',
       blog_content: 'Contenido del blog aqui...',
-      blog_conclusion: 'Soy interesante como marca porque no soy un arquetipo único, sino una combinación auténtica de Heroe, Sabio y Cuidador.',
+      blog_conclusion: '¿Tu identidad profesional refleja realmente tus valores? Si la respuesta no es clara, comienza hoy. Define tus principios. Documenta tu proceso. Lidera con acciones.',
       contact_email: 'contacto@saul.com',
       contact_phone: '+1 (555) 123-4567',
       primary_color: '#dc2626',
@@ -884,5 +872,5 @@
       observer.observe(el);
     });
   </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cef9a22116eefc7',t:'MTc3MTI3MTcyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cf0641d54edefc7',t:'MTc3MTI3OTk5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
