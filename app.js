@@ -301,12 +301,110 @@ function mapToEditPanelValues(config) {
    ============================================= */
 function initKeyboard() {
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeMobileMenu();
+    if (e.key === 'Escape') { closeMobileMenu(); closeGallery(); }
     if (e.altKey) {
       const i = PAGES.indexOf(currentPage);
       if (e.key === 'ArrowRight' && i < PAGES.length - 1) navigateTo(PAGES[i + 1]);
       if (e.key === 'ArrowLeft'  && i > 0)                navigateTo(PAGES[i - 1]);
     }
+  });
+}
+
+/* =============================================
+   PROJECT GALLERY
+   ============================================= */
+
+// IMÁGENES: agrega las rutas de tus archivos dentro de cada array.
+// Ejemplo: images: ['assets/salud-1.jpg', 'assets/salud-2.jpg']
+const projectGalleries = {
+  'project-salud': {
+    name: 'App Móvil de Gestión de Salud',
+    images: [
+      // 'assets/salud-1.jpg',
+      // 'assets/salud-2.jpg',
+    ],
+  },
+  'project-plataforma': {
+    name: 'Plataforma Digital de Colaboración',
+    images: [
+      // 'assets/plataforma-1.jpg',
+      // 'assets/plataforma-2.jpg',
+    ],
+  },
+};
+
+let galleryState = { images: [], index: 0 };
+
+function openGallery(projectId) {
+  const data = projectGalleries[projectId];
+  if (!data) return;
+  galleryState = { images: data.images, index: 0 };
+
+  document.getElementById('gallery-modal-title').textContent = data.name;
+  renderGallery();
+
+  const modal = document.getElementById('gallery-modal');
+  modal.setAttribute('aria-hidden', 'false');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGallery() {
+  const modal = document.getElementById('gallery-modal');
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+function renderGallery() {
+  const { images, index } = galleryState;
+  const hasImages = images.length > 0;
+
+  const img     = document.getElementById('gallery-img');
+  const empty   = document.getElementById('gallery-empty');
+  const thumbs  = document.getElementById('gallery-thumbs');
+  const current = document.getElementById('gallery-current');
+  const total   = document.getElementById('gallery-total');
+  const prev    = document.getElementById('gallery-prev');
+  const next    = document.getElementById('gallery-next');
+
+  img.style.display   = hasImages ? 'block' : 'none';
+  empty.style.display = hasImages ? 'none'  : 'flex';
+
+  if (!hasImages) {
+    thumbs.innerHTML = '';
+    current.textContent = '0';
+    total.textContent   = '0';
+    prev.disabled = next.disabled = true;
+    return;
+  }
+
+  img.src = images[index];
+  img.alt = `Imagen ${index + 1} del proyecto`;
+  current.textContent = index + 1;
+  total.textContent   = images.length;
+  prev.disabled = index === 0;
+  next.disabled = index === images.length - 1;
+
+  thumbs.innerHTML = images.map((src, i) =>
+    `<img src="${src}" alt="Miniatura ${i + 1}" class="gallery-thumb${i === index ? ' active' : ''}" data-index="${i}">`
+  ).join('');
+  thumbs.querySelectorAll('.gallery-thumb').forEach(t =>
+    t.addEventListener('click', () => { galleryState.index = Number(t.dataset.index); renderGallery(); })
+  );
+}
+
+function initGallery() {
+  document.querySelectorAll('[data-gallery]').forEach(btn =>
+    btn.addEventListener('click', () => openGallery(btn.dataset.gallery))
+  );
+  document.getElementById('gallery-close')?.addEventListener('click', closeGallery);
+  document.getElementById('gallery-backdrop')?.addEventListener('click', closeGallery);
+  document.getElementById('gallery-prev')?.addEventListener('click', () => {
+    if (galleryState.index > 0) { galleryState.index--; renderGallery(); }
+  });
+  document.getElementById('gallery-next')?.addEventListener('click', () => {
+    if (galleryState.index < galleryState.images.length - 1) { galleryState.index++; renderGallery(); }
   });
 }
 
@@ -339,6 +437,7 @@ function initEvents() {
 document.addEventListener('DOMContentLoaded', () => {
   initRevealObserver();
   initEvents();
+  initGallery();
   initScrollEffects();
   initContactForm();
   initKeyboard();
