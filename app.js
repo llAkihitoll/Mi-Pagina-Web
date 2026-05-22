@@ -320,15 +320,28 @@ const projectGalleries = {
   'project-salud': {
     name: 'App Móvil de Gestión de Salud',
     images: [
-      // 'assets/salud-1.jpg',
-      // 'assets/salud-2.jpg',
+      { src: 'assets/proy1/home_proy1.jpeg',            desc: 'Pantalla principal con el personaje en pixel art reflejando el estado de bienestar del usuario.' },
+      { src: 'assets/proy1/MenuDeUsuario_proy1.jpeg',    desc: 'Menú de opciones del usuario con acceso a configuración y perfil.' },
+      { src: 'assets/proy1/MenuDesplegable_proy1.jpeg',  desc: 'Menú desplegable de navegación entre los módulos de la aplicación.' },
+      { src: 'assets/proy1/DarkMode_proy1.jpeg',         desc: 'Modo oscuro de la interfaz, alternativa visual para mayor comodidad.' },
+      { src: 'assets/proy1/Traduccion_proy1.jpeg',       desc: 'Soporte multiidioma: la app está disponible en español e inglés.' },
     ],
   },
   'project-plataforma': {
     name: 'Plataforma Digital de Colaboración',
+    images: [],
+  },
+  'project-tienda': {
+    name: 'Proyecto Tienda — Gestión de Inventario y Ventas',
     images: [
-      // 'assets/plataforma-1.jpg',
-      // 'assets/plataforma-2.jpg',
+      { src: 'assets/proy2/Dashboard_proy2.jpeg',          desc: 'Panel principal con resumen general de ventas, inventario y actividad reciente.' },
+      { src: 'assets/proy2/Productos_proy2.jpeg',           desc: 'Módulo de gestión de productos: registro, edición y control de stock.' },
+      { src: 'assets/proy2/Categorias_proy2.jpeg',          desc: 'Administración de categorías para organizar el catálogo de productos.' },
+      { src: 'assets/proy2/Clientes_proy2.jpeg',            desc: 'Registro y gestión de clientes con historial de compras.' },
+      { src: 'assets/proy2/Empleados_proy2.jpeg',           desc: 'Gestión de empleados con asignación de roles y permisos dentro del sistema.' },
+      { src: 'assets/proy2/Proveedores_proy2.jpeg',         desc: 'Administración de proveedores y control de compras entrantes.' },
+      { src: 'assets/proy2/VentasRegistradas_proy2.jpeg',   desc: 'Historial completo de ventas registradas con detalle de cada transacción.' },
+      { src: 'assets/proy2/Reportes_proy2.jpeg',            desc: 'Módulo de reportes y estadísticas para el análisis del negocio.' },
     ],
   },
 };
@@ -367,27 +380,31 @@ function renderGallery() {
   const total   = document.getElementById('gallery-total');
   const prev    = document.getElementById('gallery-prev');
   const next    = document.getElementById('gallery-next');
+  const desc    = document.getElementById('gallery-desc');
 
   img.style.display   = hasImages ? 'block' : 'none';
   empty.style.display = hasImages ? 'none'  : 'flex';
 
   if (!hasImages) {
     thumbs.innerHTML = '';
+    if (desc) desc.textContent = '';
     current.textContent = '0';
     total.textContent   = '0';
     prev.disabled = next.disabled = true;
     return;
   }
 
-  img.src = images[index];
-  img.alt = `Imagen ${index + 1} del proyecto`;
+  const entry = images[index];
+  img.src = entry.src;
+  img.alt = entry.desc || `Imagen ${index + 1} del proyecto`;
+  if (desc) desc.textContent = entry.desc || '';
   current.textContent = index + 1;
   total.textContent   = images.length;
   prev.disabled = index === 0;
   next.disabled = index === images.length - 1;
 
-  thumbs.innerHTML = images.map((src, i) =>
-    `<img src="${src}" alt="Miniatura ${i + 1}" class="gallery-thumb${i === index ? ' active' : ''}" data-index="${i}">`
+  thumbs.innerHTML = images.map((item, i) =>
+    `<img src="${item.src}" alt="Miniatura ${i + 1}" class="gallery-thumb${i === index ? ' active' : ''}" data-index="${i}">`
   ).join('');
   thumbs.querySelectorAll('.gallery-thumb').forEach(t =>
     t.addEventListener('click', () => { galleryState.index = Number(t.dataset.index); renderGallery(); })
