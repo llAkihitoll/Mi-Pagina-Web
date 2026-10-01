@@ -1076,8 +1076,10 @@ ul     { list-style: none; }
   flex-wrap: wrap;
   margin-top: auto;
 }
-.project-gallery-btn {
+.project-gallery-btn,
+.project-repo-btn {
   display: inline-flex;
+  text-decoration: none;
   align-items: center;
   gap: 0.4rem;
   font-size: 0.8rem;
@@ -1090,7 +1092,8 @@ ul     { list-style: none; }
   cursor: pointer;
   transition: color var(--t-base), border-color var(--t-base), background var(--t-base);
 }
-.project-gallery-btn:hover {
+.project-gallery-btn:hover,
+.project-repo-btn:hover {
   color: var(--c-red);
   border-color: var(--c-red-border);
   background: rgba(229,62,62,0.05);

@@ -16,7 +16,7 @@ const defaultConfig = {
   blog_intro:        'Escribes en Google: "marca personal liderazgo con disciplina y esfuerzo". Lo que quiero que encuentres no es un discurso motivacional. Es coherencia.',
   blog_content:      '',
   blog_conclusion:   '¿Tu identidad profesional refleja realmente tus valores? Si la respuesta no es clara, comienza hoy. Define tus principios. Documenta tu proceso. Lidera con acciones.',
-  contact_email:     'cas248915@uvg.edu.gt',
+  contact_email:     'saul.esteban.casti@gmail.com',
   contact_phone:     '+502 5986 4340',
   primary_color:     '#e53e3e',
   secondary_color:   '#0a0f1e',
@@ -186,12 +186,16 @@ function updateBackToTop() {
 /* =============================================
    CONTACT FORM
    ============================================= */
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/saul.esteban.casti@gmail.com';
+
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
+  const submitBtn = form.querySelector('button[type="submit"]');
 
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
+    if (submitBtn.disabled) return;
     const name    = form.querySelector('#form-name').value.trim();
     const email   = form.querySelector('#form-email').value.trim();
     const message = form.querySelector('#form-message').value.trim();
@@ -205,11 +209,32 @@ function initContactForm() {
       return;
     }
 
-    const dest = document.getElementById('contact-email')?.textContent ?? defaultConfig.contact_email;
-    const body = `Nombre: ${name}\nEmail: ${email}\n\n${message}`;
-    window.location.href = `mailto:${dest}?subject=${encodeURIComponent(`Contacto — ${name}`)}&body=${encodeURIComponent(body)}`;
-    form.reset();
-    showToast('¡Abriendo tu cliente de correo!', 'success');
+    submitBtn.disabled = true;
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject: `Contacto desde tu página web — ${name}`,
+          _replyto: email,
+          _template: 'table',
+          _captcha: 'false',
+          _honey: form.querySelector('[name="_honey"]').value,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || res.statusText);
+      form.reset();
+      showToast('¡Mensaje enviado! Te responderé pronto.', 'success');
+    } catch (err) {
+      console.error('Error al enviar el formulario:', err);
+      showToast('No se pudo enviar el mensaje. Intenta de nuevo.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
 }
 
